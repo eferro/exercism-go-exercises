@@ -14,23 +14,23 @@ const (
 
 func (c Clock) String() string {
 	hours := c.minutes / 60
-	remainding_minutes := c.minutes % 60
-	return fmt.Sprintf("%02d:%02d", hours, remainding_minutes)
+	remaindingMinutes := c.minutes % 60
+	return fmt.Sprintf("%02d:%02d", hours, remaindingMinutes)
 }
 
 func (c Clock) Add(minutes int) Clock {
 	return Clock{
-		minutes: normalize_minutes((c.minutes + minutes) % MINUTES_PER_DAY),
+		minutes: normalizeMinutes((c.minutes + minutes) % MINUTES_PER_DAY),
 	}
 }
 
 func New(hours, minutes int) Clock {
 	return Clock{
-		minutes: hours*60 + minutes,
+		minutes: normalizeMinutes(hours*60 + minutes),
 	}
 }
 
-func normalize_minutes(minutes int) int {
+func normalizeMinutes(minutes int) int {
 	if minutes >= 0 {
 		return minutes
 	}
